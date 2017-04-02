@@ -32,6 +32,12 @@ function isUndefined(value) {
 
 }
 
+function isDefined(value) {
+
+    return ( ! isUndefined(value));
+
+}
+
 function isObject(value) {
 
     // NOTE:    typeof null === 'object' so check for null as well!
@@ -86,7 +92,7 @@ function createFunction(p_func_name) {
 
     }
 
-    if (isString(p_func_name)) {
+    if (isDefined(p_func_name)) {
 
         proto_function.setName(p_func_name);
 
@@ -131,15 +137,12 @@ function createFunction(p_func_name) {
 
     "use strict";
 
-    var created_function;
     var error_message;
     var result;
 
-    created_function = createFunction();
-
     try {
 
-        created_function.setName([]);
+        createFunction([]);
 
     }
     catch (error) {
