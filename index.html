@@ -6,6 +6,10 @@
 
 "use strict";
 
+////////////////////////////////////////////////////////////////////////////////
+// Definitions and utils
+////////////////////////////////////////////////////////////////////////////////
+
 function isNull(value) {
 
     // NOTE:    value being a reference to something.
@@ -40,9 +44,55 @@ function isObject(value) {
 
 }
 
-function createFunction() {
+function isString(value) {
 
-    return {};
+    return (typeof value === "string");
+
+}
+
+function reportError(error) {
+
+    throw new Error(error);
+
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Actual experiment stuff
+////////////////////////////////////////////////////////////////////////////////
+
+var ERROR_CREATE_FUNC_WITH_NON_STRING = "Error: Attempt to create function with non-string";
+
+function createFunction(p_func_name) {
+
+    var proto_function;
+
+    proto_function = {};
+
+    proto_function.getName = function () {
+
+        return proto_function.name;
+
+    }
+
+    proto_function.setName = function (value) {
+
+        if ( ! isString(value)) {
+
+            reportError(ERROR_CREATE_FUNC_WITH_NON_STRING)
+
+        }
+
+        proto_function.name = value;
+
+    }
+
+    if (isString(p_func_name)) {
+
+        proto_function.setName(p_func_name);
+
+    }
+
+    return proto_function;
 
 }
 
@@ -66,8 +116,8 @@ function createFunction() {
 
     "use strict";
 
-    var result;
     var created_function;
+    var result;
 
     created_function = createFunction("testFunction");
 
