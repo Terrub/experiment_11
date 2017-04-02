@@ -127,4 +127,31 @@ function createFunction(p_func_name) {
 
 }());
 
+(function testCreateFunctionWithNonStringNameReturnsError() {
+
+    "use strict";
+
+    var created_function;
+    var error_message;
+    var result;
+
+    created_function = createFunction();
+
+    try {
+
+        created_function.setName([]);
+
+    }
+    catch (error) {
+
+        error_message = error.message;
+
+    }
+
+    result = (error_message === ERROR_CREATE_FUNC_WITH_NON_STRING);
+
+    console.assert(result === true);
+
+}());
+
 </script></body></html>
