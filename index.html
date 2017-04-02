@@ -62,4 +62,19 @@ function createFunction() {
 
 }())
 
+(function testCreatedFunctionCanHaveName() {
+
+    "use strict";
+
+    var result;
+    var created_function;
+
+    created_function = createFunction("testFunction");
+
+    result = created_function.getName() === "testFunction";
+
+    console.assert(result === true);
+
+}())
+
 </script></body></html>
