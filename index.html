@@ -4,6 +4,54 @@
 
 </title></head><body><script type="text/javascript">
 
+"use strict";
+
+function isNull(value) {
+
+    // NOTE:    value being a reference to something.
+
+    return (value === null);
+
+}
+
+function isUndefined(value) {
+
+    // NOTE:    changed the use of:
+
+    // return (value === undefined);
+
+    // to:
+
+    return (typeof value === "undefined");
+
+    // as this is supported on more browsers according to Teun Lassche
+
+}
+
+function isObject(value) {
+
+    // NOTE:    typeof null === 'object' so check for null as well!
+
+    if (isNull(value)) { return false; }
+
+    if (isUndefined(value)) { return false; }
+
+    return (typeof value === "object");
+
+}
+
 // Tests
+(function testCreateFunctionReturnsFunctionObject() {
+
+    var created_function;
+    var result;
+
+    created_function = createFunction();
+
+    result = isObject(created_function)
+
+    console.assert(result === true)
+
+}())
 
 </script></body></html>
