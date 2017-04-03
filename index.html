@@ -78,7 +78,29 @@ function reportError(error) {
 var ERROR_CREATE_FUNC_WITH_NON_STRING = "Error: Attempt to create function with non-string";
 var ERROR_ADDING_EMPTY_TASK_TO_FUNC = "Error: Attempt to add empty task to function";
 
-var tasks = [];
+var FUNCTION_TASK_ADDITION = "add";
+var FUNCTION_TASK_SUBSTRACTION = "sub";
+
+var tasks = {};
+
+var available_tasks = [
+    FUNCTION_TASK_ADDITION,
+    FUNCTION_TASK_SUBSTRACTION
+];
+
+// Add available tasks to the tasks object.
+
+var i = 0;
+var n = available_tasks.length;
+var task;
+
+for (i; i < n; i += 1) {
+
+    task = available_tasks[i];
+
+    tasks[task] = i;
+
+}
 
 function isTask(value) {
 
@@ -118,7 +140,18 @@ function createFunction(p_func_name) {
 
         }
 
+        proto_function.unprocessed_tasks.push(p_task);
+
     }
+
+    proto_function.getNumUnprocessedTasks = function () {
+
+        return proto_function.unprocessed_tasks.length;
+
+    }
+
+    proto_function.unprocessed_tasks = [];
+    proto_function.processed_tasks = [];
 
     if (isDefined(p_func_name)) {
 
@@ -211,6 +244,28 @@ function createFunction(p_func_name) {
     }
 
     result = error_message === ERROR_ADDING_EMPTY_TASK_TO_FUNC;
+
+    console.assert(result === true);
+
+}());
+
+(function testGetNumUnprocessedTasks() {
+
+    "use strict";
+
+    var result;
+    var created_function;
+    var num_tasks;
+
+    created_function = createFunction("testFunction");
+    num_tasks = 0;
+
+    created_function.addTask(FUNCTION_TASK_ADDITION);
+    created_function.addTask(FUNCTION_TASK_SUBSTRACTION);
+
+    num_tasks = created_function.getNumUnprocessedTasks();
+
+    result = num_tasks === 2;
 
     console.assert(result === true);
 
