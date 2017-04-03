@@ -150,10 +150,10 @@ function createFunction(p_func_name) {
     var error_message;
     var result;
 
-    try {
+    // Arguably, an array is not a string
+    not_a_string = [];
 
-        // Arguably, an array is not a string
-        not_a_string = [];
+    try {
 
         createFunction(not_a_string);
 
