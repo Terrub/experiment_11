@@ -78,6 +78,14 @@ function reportError(error) {
 var ERROR_CREATE_FUNC_WITH_NON_STRING = "Error: Attempt to create function with non-string";
 var ERROR_ADDING_EMPTY_TASK_TO_FUNC = "Error: Attempt to add empty task to function";
 
+var tasks = [];
+
+function isTask(value) {
+
+    return isDefined(tasks[value]);
+
+}
+
 function createFunction(p_func_name) {
 
     var proto_function;
@@ -99,6 +107,16 @@ function createFunction(p_func_name) {
         }
 
         proto_function.name = value;
+
+    }
+
+    proto_function.addTask = function (p_task) {
+
+        if ( ! isTask(p_task)) {
+
+            reportError(ERROR_ADDING_EMPTY_TASK_TO_FUNC);
+
+        }
 
     }
 
@@ -171,7 +189,7 @@ function createFunction(p_func_name) {
 
 }());
 
-(function testAddingEmptyTasktoFunctionBodyReturnsError() {
+(function testAddingEmptyTasktoFunctionReturnsError() {
 
     "use strict";
 
