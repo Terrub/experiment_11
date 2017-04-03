@@ -76,6 +76,7 @@ function reportError(error) {
 ////////////////////////////////////////////////////////////////////////////////
 
 var ERROR_CREATE_FUNC_WITH_NON_STRING = "Error: Attempt to create function with non-string";
+var ERROR_ADDING_EMPTY_TASK_TO_FUNC = "Error: Attempt to add empty task to function";
 
 function createFunction(p_func_name) {
 
@@ -169,5 +170,46 @@ function createFunction(p_func_name) {
     console.assert(result === true);
 
 }());
+
+(function testAddingEmptyTasktoFunctionBodyReturnsError() {
+
+    "use strict";
+
+    var result;
+    var created_function;
+    var error_message;
+
+    created_function = createFunction("testFunction");
+
+    try {
+
+        created_function.addTask();
+
+    }
+    catch (error) {
+
+        error_message = error.message;
+
+    }
+
+    result = error_message === ERROR_ADDING_EMPTY_TASK_TO_FUNC;
+
+    console.assert(result === true);
+
+}());
+
+/* basic test block
+
+(function test() {
+
+    "use strict";
+
+    var result;
+
+    console.assert(result === true);
+
+}());
+
+*/
 
 </script></body></html>
