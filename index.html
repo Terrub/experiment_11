@@ -137,12 +137,16 @@ function createFunction(p_func_name) {
 
     "use strict";
 
+    var not_a_string;
     var error_message;
     var result;
 
     try {
 
-        createFunction([]);
+        // Arguably, an array is not a string
+        not_a_string = [];
+
+        createFunction(not_a_string);
 
     }
     catch (error) {
